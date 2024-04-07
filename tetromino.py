@@ -120,6 +120,15 @@ class Tetromino:
          self.bottom_left_cell.x -= 1
       elif direction == "right":
          self.bottom_left_cell.x += 1
+      #control the rotation for dont accross the grid and give the game ower.
+      elif direction == "space":
+         n = len(self.tile_matrix)
+         copy_tile_for_rotation = np.full((n,n), None)
+            #rotate tetrominos
+         for row in range(n):
+            for col in range(n):
+               copy_tile_for_rotation[col][n-1-row] = self.tile_matrix[row][col]
+         self.tile_matrix = copy_tile_for_rotation
       else:  # direction == "down"
          self.bottom_left_cell.y -= 1
       return True  # a successful move in the given direction
@@ -128,7 +137,7 @@ class Tetromino:
    def can_be_moved(self, direction, game_grid):
       n = len(self.tile_matrix)  # n = number of rows = number of columns
       # check for moving left or right
-      if direction == "left" or direction == "right":
+      if direction == "left" or direction == "right" or direction == "space":
          for row_index in range(n):
             for col_index in range(n):
                # direction = left --> check the leftmost tile of each row
@@ -157,6 +166,17 @@ class Tetromino:
                      return False  # this tetromino cannot be moved right
                   # as the rightmost tile of the current row is checked
                   break  # end the inner for loop
+               
+               if direction == "space" and self.tile_matrix[row][col] is not None:
+                  leftmost = self.get_cell_position(row, col)
+                  rightmost = self.get_cell_position(row, n - 1 - col_index)
+                  if leftmost.x == 0 or rightmost.x == Tetromino.grid_width - 1:
+                     return False  # Tetromino cannot be moved horizontally
+                  if game_grid.is_occupied(leftmost.y, leftmost.x - 1) or game_grid.is_occupied(rightmost.y, rightmost.x + 1):
+                     return False  # Tetromino cannot be moved due to obstacle
+                   # As we've checked both left and right sides and found no obstacles
+                  break  # End the inner for loop
+               
       # direction = down --> check the bottommost tile of each column
       else:
          for col in range(n):

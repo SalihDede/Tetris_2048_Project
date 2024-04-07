@@ -42,6 +42,9 @@ def start():
       # check for any user interaction via the keyboard
       if stddraw.hasNextKeyTyped():  # check if the user has pressed a key
          key_typed = stddraw.nextKeyTyped()  # the most recently pressed key
+          # if space key has been pressed rotate the tetromine 90 degrees clockwise
+         if key_typed == "space":
+            current_tetromino.move(key_typed,grid)
          # if the left arrow key has been pressed
          if key_typed == "left":
             # move the active tetromino left by one
@@ -94,8 +97,8 @@ def create_tetromino():
 # A function for displaying a simple menu before starting the game
 def display_game_menu(grid_height, grid_width):
    # the colors used for the menu
-   background_color = Color(42, 69, 99)
-   button_color = Color(25, 255, 228)
+   background_color = Color(245, 245, 245)
+   button_color = Color(245,245,245)
    text_color = Color(31, 160, 239)
    # clear the background drawing canvas to background_color
    stddraw.clear(background_color)
