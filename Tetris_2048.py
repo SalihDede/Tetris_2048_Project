@@ -105,7 +105,7 @@ def display_game_menu(grid_height, grid_width):
    # get the directory in which this python code file is placed
    current_dir = os.path.dirname(os.path.realpath(__file__))
    # compute the path of the image file
-   img_file = current_dir + "/images/menu_image.png"
+   img_file = current_dir + "/images/Tetris_bg_v4.png"
    # the coordinates to display the image centered horizontally
    img_center_x, img_center_y = (grid_width - 1) / 2, grid_height - 7
    # the image is modeled by using the Picture class
