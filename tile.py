@@ -6,18 +6,18 @@ class Tile:
    # Class variables shared among all Tile objects
    # ---------------------------------------------------------------------------
    # the value of the boundary thickness (for the boxes around the tiles)
-   boundary_thickness = 0.004
+   boundary_thickness = 0.006
    # font family and font size used for displaying the tile number
-   font_family, font_size = "Arial", 14
+   font_family, font_size = "Poppins Bold", 20
 
    # A constructor that creates a tile with 2 as the number on it
    def __init__(self):
       # set the number on this tile
       self.number = random.choice([2,4])
       # set the colors of this tile
-      self.background_color = Color(151, 178, 199)  # background (tile) color
+      self.background_color = Color(219, 189, 113)  # background (tile) color
       self.foreground_color = Color(0, 100, 200)  # foreground (number) color
-      self.box_color = Color(0, 100, 200)  # box (boundary) color
+      self.box_color = Color(14, 98, 148)  # box (boundary) color
 
    # A method for drawing this tile at a given position with a given length
    def draw(self, position, length=1):  # length defaults to 1
