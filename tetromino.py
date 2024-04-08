@@ -15,6 +15,7 @@ class Tetromino:
       # determine the occupied (non-empty) cells in the tile matrix based on
       # the shape of this tetromino (see the documentation given with this code)
       occupied_cells = []
+
       if self.type == 'I':
          n = 4  # n = number of rows = number of columns in the tile matrix
          # shape of the tetromino I in its initial rotation state
@@ -63,6 +64,10 @@ class Tetromino:
 
    # A method to return a copy of the tile matrix without any empty row/column,
    # and the position of the bottom left cell when return_position is set
+
+
+
+
    def get_min_bounded_tile_matrix(self, return_position=False):
       n = len(self.tile_matrix)  # n = number of rows = number of columns
       # determine rows and columns to copy (omit empty rows and columns)

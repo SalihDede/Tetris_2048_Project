@@ -6,12 +6,15 @@ import numpy as np  # fundamental Python module for scientific computing
 # A class for modeling the game grid
 class GameGrid:
    # A constructor for creating the game grid based on the given arguments
+
+
    def __init__(self, grid_h, grid_w):
       # set the dimensions of the game grid as the given arguments
       self.grid_height = grid_h
       self.grid_width = grid_w
       # create a tile matrix to store the tiles locked on the game grid
       self.tile_matrix = np.full((grid_h, grid_w), None)
+
       # create the tetromino that is currently being moved on the game grid
       self.current_tetromino = None
       # the game_over flag shows whether the game is over or not
@@ -26,6 +29,8 @@ class GameGrid:
       self.box_thickness = 10 * self.line_thickness
 
    # A method for displaying the game grid
+
+
    def display(self):
       # clear the background to empty_cell_color
       stddraw.clear(self.empty_cell_color)
@@ -113,5 +118,22 @@ class GameGrid:
                # the game is over if any placed tile is above the game grid
                else:
                   self.game_over = True
+
+      # Remove filled lines
+      self.remove_filled_lines()
+
       # return the value of the game_over flag
       return self.game_over
+
+   # A method to remove filled lines from the grid
+   def remove_filled_lines(self):
+      lines_to_remove = []
+      for row in range(self.grid_height):
+         if all(self.tile_matrix[row]):
+            lines_to_remove.append(row)
+      for row in reversed(lines_to_remove):
+         # Shift the lines above the removed line down
+         for r in range(row, self.grid_height - 1):
+            self.tile_matrix[r] = self.tile_matrix[r + 1]
+         # Fill the top line with None values
+         self.tile_matrix[self.grid_height - 1] = [None] * self.grid_width

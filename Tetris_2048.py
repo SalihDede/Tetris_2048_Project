@@ -3,7 +3,7 @@
 # The main program of Tetris 2048 Base Code                                    #
 #                                                                              #
 ################################################################################
-
+import game_grid
 import lib.stddraw as stddraw  # for creating an animation with user interactions
 from lib.picture import Picture  # used for displaying an image on the game menu
 from lib.color import Color  # used for coloring the game menu
@@ -39,7 +39,12 @@ def start():
 
    # the main game loop
    while True:
+
+      #console_array_value = GameGrid.tile_matrix[0][0]
+
       # check for any user interaction via the keyboard
+      print("alo")
+
       if stddraw.hasNextKeyTyped():  # check if the user has pressed a key
          key_typed = stddraw.nextKeyTyped()  # the most recently pressed key
           # if space key has been pressed rotate the tetromine 90 degrees clockwise
@@ -127,10 +132,13 @@ def display_game_menu(grid_height, grid_width):
    stddraw.text(img_center_x, 5, text_to_display)
    # the user interaction loop for the simple menu
    while True:
+
       # display the menu and wait for a short time (50 ms)
       stddraw.show(50)
+
       # check if the mouse has been left-clicked on the start game button
       if stddraw.mousePressed():
+
          # get the coordinates of the most recent location at which the mouse
          # has been left-clicked
          mouse_x, mouse_y = stddraw.mouseX(), stddraw.mouseY()
@@ -144,3 +152,4 @@ def display_game_menu(grid_height, grid_width):
 # the program starts execution
 if __name__ == '__main__':
    start()
+
