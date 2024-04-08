@@ -18,9 +18,9 @@ def start():
    grid_h, grid_w = 20, 12
    # set the size of the drawing canvas (the displayed window)
    canvas_h, canvas_w = 40 * grid_h, 40 * grid_w
-   stddraw.setCanvasSize(canvas_w, canvas_h)
+   stddraw.setCanvasSize(canvas_w + 200, canvas_h)  # +200 for the score and next block area
    # set the scale of the coordinate system for the drawing canvas
-   stddraw.setXscale(-0.5, grid_w - 0.5)
+   stddraw.setXscale(-0.5, grid_w + 5.0)  # +1.5 for the score and next block area
    stddraw.setYscale(-0.5, grid_h - 0.5)
 
    # set the game grid dimension values stored and used in the Tetromino class
