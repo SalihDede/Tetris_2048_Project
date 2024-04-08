@@ -12,6 +12,8 @@ class GameGrid:
       # set the dimensions of the game grid as the given arguments
       self.grid_height = grid_h
       self.grid_width = grid_w
+      self.score = 0
+
       # create a tile matrix to store the tiles locked on the game grid
       self.tile_matrix = np.full((grid_h, grid_w), None)
 
@@ -41,11 +43,18 @@ class GameGrid:
          self.current_tetromino.draw()
       # draw a box around the game grid
       self.draw_boundaries()
+
+      # Skoru ekrana yazdırma
+      stddraw.setFontSize(16)
+      stddraw.setFontFamily("Arial")
+      stddraw.text(self.grid_width + 2, self.grid_height - 1, f"Score: {self.score}")
+
       # show the resulting drawing with a pause duration = 250 ms
       stddraw.show(250)
 
    # A method for drawing the cells and the lines of the game grid
    def draw_grid(self):
+
       # for each cell of the game grid
       for row in range(self.grid_height):
          for col in range(self.grid_width):
@@ -130,9 +139,17 @@ class GameGrid:
       for row in range(self.grid_height):
          if all(self.tile_matrix[row]):
             lines_to_remove.append(row)
+
+      # Increment the score for each filled line removed
+      self.score += len(lines_to_remove) * 100
+
       for row in reversed(lines_to_remove):
          # Shift the lines above the removed line down
          for r in range(row, self.grid_height - 1):
             self.tile_matrix[r] = self.tile_matrix[r + 1]
          # Fill the top line with None values
          self.tile_matrix[self.grid_height - 1] = [None] * self.grid_width
+
+      return len(lines_to_remove) > 0
+
+
