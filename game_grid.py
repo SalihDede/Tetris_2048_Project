@@ -14,6 +14,9 @@ class GameGrid:
       self.grid_width = grid_w
       #Add Score qualification to user itterration
       self.score = 0
+
+      self.next_block = None
+
       self.text_color = Color(14, 98, 148)
       # create a tile matrix to store the tiles locked on the game grid
       self.tile_matrix = np.full((grid_h, grid_w), None)
@@ -51,7 +54,16 @@ class GameGrid:
       stddraw.setPenColor(self.text_color)
       stddraw.text(14, self.grid_height - 1, "Total Score")
       stddraw.text(14, self.grid_height - 2, ""  + str(self.score))
-      
+
+      stddraw.setFontSize(35)
+      stddraw.text(self.grid_width + 2, self.grid_height - 10, "Next Tetromino")
+      # Next Block'un altındaki başlangıç koordinatları
+      next_block_x = self.grid_width + 1.5
+      next_block_y = self.grid_height - 12
+      # Bir sonraki bloğu çizme
+      if self.next_block is not None:
+         self.next_block.draw_next_block(next_block_x, next_block_y)
+
       # show the resulting drawing with a pause duration = 250 ms
       stddraw.show(250)
 

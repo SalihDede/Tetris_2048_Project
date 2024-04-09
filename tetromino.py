@@ -88,8 +88,19 @@ class Tetromino:
    # A method to return a copy of the tile matrix without any empty row/column,
    # and the position of the bottom left cell when return_position is set
 
-
-
+   # Bir sonraki bloğu belirli bir konumda çizen metod
+   def draw_next_block(self, x, y):
+      # Tetromino'nun hücrelerini çizmek için x ve y koordinatlarına göre yeni pozisyonları hesapla
+      for row_index in range(len(self.tile_matrix)):
+         for col_index in range(len(self.tile_matrix[0])):
+            # Eğer hücre boş değilse, çiz
+            if self.tile_matrix[row_index][col_index] is not None:
+               # Hücrenin konumunu hesapla
+               cell_x = x + col_index
+               cell_y = y - row_index  # Y ekseni ters yönde olduğu için -
+               cell_position = Point(cell_x, cell_y)
+               # Hücreyi çiz
+               self.tile_matrix[row_index][col_index].draw(cell_position)
 
    def get_min_bounded_tile_matrix(self, return_position=False):
       n = len(self.tile_matrix)  # n = number of rows = number of columns

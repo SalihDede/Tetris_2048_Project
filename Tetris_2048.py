@@ -29,7 +29,10 @@ def start():
    grid.current_tetromino = current_tetromino
 
    score = 0
+
    next_block = create_tetromino()
+   # Next block'u oluşturduktan sonra grid nesnesine atama yap
+   grid.next_block = next_block
 
    display_game_menu(grid_h, grid_w, score)
 
@@ -54,8 +57,13 @@ def start():
          game_over = grid.update_grid(tiles, pos)
          if game_over:
             break
-         current_tetromino = create_tetromino()
+         current_tetromino = next_block
          grid.current_tetromino = current_tetromino
+         next_block = create_tetromino()
+         # Next block'u oluşturduktan sonra grid nesnesine atama yap
+         grid.next_block = next_block
+
+
 
       grid.display()
 
