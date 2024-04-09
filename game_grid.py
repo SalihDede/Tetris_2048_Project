@@ -1,3 +1,5 @@
+import os  # the os module is used for file and directory operations
+from lib.picture import Picture  # used for displaying an image on the game menu
 import lib.stddraw as stddraw  # used for displaying the game grid
 from lib.color import Color  # used for coloring the game grid
 from point import Point  # used for tile positions
@@ -48,17 +50,23 @@ class GameGrid:
       # draw a box around the game grid
       self.draw_boundaries()
 
-      # Draw total score text
+       # Draw total score text
       stddraw.setFontFamily("Poppins Bold")
       stddraw.setFontSize(40)
       stddraw.setPenColor(self.text_color)
-      stddraw.text(14, self.grid_height - 1, "Total Score")
-      stddraw.text(14, self.grid_height - 2, ""  + str(self.score))
-
+      stddraw.text(self.grid_width +2.2, self.grid_height - 2, "Total Score")
+      stddraw.setFontSize(50)
+      stddraw.text(self.grid_width +2.2, self.grid_height - 4.2, ""  + str(self.score))
       stddraw.setFontSize(35)
-      stddraw.text(self.grid_width + 2, self.grid_height - 10, "Next Tetromino")
+      stddraw.text(self.grid_width + 2.2, self.grid_height - 9, "Next Tetromino")
+      current_dir = os.path.dirname(os.path.realpath(__file__))
+      img_file = current_dir + "/images/frame1_updated.png"
+      img_center_x, img_center_y = (self.grid_width+2.2), self.grid_height - 11
+      image_to_display = Picture(img_file)
+      stddraw.picture(image_to_display, img_center_x, img_center_y)
+  
       # Next Block'un altındaki başlangıç koordinatları
-      next_block_x = self.grid_width + 1.5
+      next_block_x = 13.2
       next_block_y = self.grid_height - 12
       # Bir sonraki bloğu çizme
       if self.next_block is not None:
@@ -66,7 +74,20 @@ class GameGrid:
 
       # show the resulting drawing with a pause duration = 250 ms
       stddraw.show(250)
-
+      
+   def display_end_game(self):
+      current_dir = os.path.dirname(os.path.realpath(__file__))
+      img_file = current_dir + "/images/End_game_frame.png"
+      img_center_x, img_center_y = (self.grid_width-3.8), self.grid_height - 10.5
+      image_to_display = Picture(img_file)
+      stddraw.picture(image_to_display, img_center_x, img_center_y)
+      stddraw.setFontFamily("Poppins Bold")
+      stddraw.setFontSize(80)
+      stddraw.setPenColor(Color(0,0,0))
+      text_to_display = "Click Here to Start the Game"
+      stddraw.text(self.grid_width -3.8, self.grid_height - 15.5, ""  + str(self.score))
+      stddraw.show(5000)
+   
    # A method for drawing the cells and the lines of the game grid
    def draw_grid(self):
 

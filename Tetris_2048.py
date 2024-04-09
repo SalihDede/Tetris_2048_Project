@@ -45,12 +45,6 @@ def start():
             current_tetromino.move(key_typed, grid)
          stddraw.clearKeysTyped()
 
-      if grid.remove_filled_lines():  # remove_filled_lines fonksiyonunun dönüş değeri ile kontrol ediliyor
-         grid.score += 100  # Puanın doğrudan GameGrid nesnesinin bir özelliği üzerinden güncellenmesi
-         grid.draw_score()  # Puanın ekrana çizilmesi
-         if not grid.current_tetromino:
-            next_block = create_tetromino()
-
       success = current_tetromino.move("down", grid)
       if not success:
          tiles, pos = current_tetromino.get_min_bounded_tile_matrix(True)
@@ -67,6 +61,7 @@ def start():
 
       grid.display()
 
+   grid.display_end_game()
    print("Game over")
 
 
@@ -90,17 +85,17 @@ def display_game_menu(grid_height, grid_width, score):
    # get the directory in which this python code file is placed
    current_dir = os.path.dirname(os.path.realpath(__file__))
    # compute the path of the image file
-   img_file = current_dir + "/images/Tetris_bg_v4.png"
+   img_file = current_dir + "/images/Tetris_bg_v5.png"
    # the coordinates to display the image centered horizontally
-   img_center_x, img_center_y = (grid_width - 1) / 2, grid_height - 7
+   img_center_x, img_center_y = (grid_width-3.7), grid_height - 11
    # the image is modeled by using the Picture class
    image_to_display = Picture(img_file)
    # add the image to the drawing canvas
    stddraw.picture(image_to_display, img_center_x, img_center_y)
    # the dimensions for the start game button
-   button_w, button_h = grid_width - 1.5, 2
+   button_w, button_h = grid_width - 1, 2
    # the coordinates of the bottom left corner for the start game button
-   button_blc_x, button_blc_y = img_center_x - button_w / 2, 4
+   button_blc_x, button_blc_y = img_center_x - button_w / 2, 3
    # add the start game button as a filled rectangle
    stddraw.setPenColor(button_color)
    stddraw.filledRectangle(button_blc_x, button_blc_y, button_w, button_h)
@@ -109,7 +104,7 @@ def display_game_menu(grid_height, grid_width, score):
    stddraw.setFontSize(30)
    stddraw.setPenColor(text_color)
    text_to_display = "Click Here to Start the Game"
-   stddraw.text(img_center_x, 5, text_to_display)
+   stddraw.text(img_center_x, 4, text_to_display)
 
 
 
