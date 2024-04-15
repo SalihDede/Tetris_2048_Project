@@ -166,6 +166,11 @@ class GameGrid:
       # Remove filled lines
       self.remove_filled_lines()
 
+      self.merge_tiles()
+
+
+
+
       # return the value of the game_over flag
       return self.game_over
 
@@ -190,5 +195,54 @@ class GameGrid:
             self.tile_matrix[r] = self.tile_matrix[r + 1]
          # Fill the top line with None values
          self.tile_matrix[self.grid_height - 1] = [None] * self.grid_width
-         
-      
+
+   def merge_tiles(self):
+      merged = False  # Flag to keep track of whether any merging occurred in this iteration
+
+      # Iterate over each row and column in the grid
+      for row in range(1, self.grid_height):
+         for col in range(self.grid_width):
+            # Get the current tile and the tile below it
+            current_tile = self.tile_matrix[row][col]
+            below_tile = self.tile_matrix[row - 1][col]
+
+            # Check if both tiles are not None and have the same number
+            if current_tile is not None and below_tile is not None and current_tile.number == below_tile.number:
+               # Double the value of the current tile
+               current_tile.number *= 2
+
+               # Clear the below tile
+               self.tile_matrix[row - 1][col] = None
+               merged = True  # Set the merged flag to True
+
+               self.make_tiles_fall_down()  # After merging, make tiles fall down
+
+
+      # If any merging occurred in this iteration, recursively call merge_tiles
+      if merged:
+         self.merge_tiles()
+
+
+   def make_tiles_fall_down(self):
+      # Flag to keep track of whether any tiles have been moved down in this iteration
+      moved = False
+
+      # Iterate over each column in the grid
+      for col in range(self.grid_width):
+         # Iterate over each row  from top to bottom
+         for row in range(self.grid_height - 2, -1, -1):  # start from second-to-last row
+            # Get the current tile and the tile below it
+            current_tile = self.tile_matrix[row][col]
+            below_tile = self.tile_matrix[row + 1][col]
+
+            # If the current tile is None and there is a tile below it, move the below tile up
+            if current_tile is None and below_tile is not None:
+               # Move the below tile up
+               self.tile_matrix[row][col] = below_tile
+               self.tile_matrix[row + 1][col] = None
+               # Set the moved flag to True
+               moved = True
+
+      # If any tiles were moved down in this iteration, recursively call make_tiles_fall_down
+      if moved:
+         self.make_tiles_fall_down()
