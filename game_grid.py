@@ -165,7 +165,6 @@ class GameGrid:
 
       # Remove filled lines
       self.remove_filled_lines()
-
       self.merge_tiles()
 
 
@@ -195,6 +194,7 @@ class GameGrid:
             self.tile_matrix[r] = self.tile_matrix[r + 1]
          # Fill the top line with None values
          self.tile_matrix[self.grid_height - 1] = [None] * self.grid_width
+         
 
    def merge_tiles(self):
       merged = False  # Flag to keep track of whether any merging occurred in this iteration
@@ -219,6 +219,7 @@ class GameGrid:
                merged = True  # Set the merged flag to True
 
                self.make_tiles_fall_down()  # After merging, make tiles fall down
+      self.remove_filled_lines()
 
 
       # If any merging occurred in this iteration, recursively call merge_tiles
