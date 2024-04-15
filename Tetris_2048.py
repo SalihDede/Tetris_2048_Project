@@ -37,12 +37,31 @@ def start():
    display_game_menu(grid_h, grid_w, score)
 
    while True:
+
+      key_typed = None
       if stddraw.hasNextKeyTyped():
          key_typed = stddraw.nextKeyTyped()
          if key_typed == "space":
             current_tetromino.move(key_typed, grid)
          elif key_typed in ["left", "right", "down"]:
             current_tetromino.move(key_typed, grid)
+         elif key_typed == "s":
+            while True:
+
+               success = current_tetromino.move("down", grid)
+               if not success:
+
+                  tiles, pos = current_tetromino.get_min_bounded_tile_matrix(True)
+                  game_over = grid.update_grid(tiles, pos)
+                  if game_over:
+                     break
+
+                  current_tetromino = next_block
+                  grid.current_tetromino = current_tetromino
+                  next_block = create_tetromino()
+                  grid.next_block = next_block
+                  break
+
          stddraw.clearKeysTyped()
 
       success = current_tetromino.move("down", grid)
