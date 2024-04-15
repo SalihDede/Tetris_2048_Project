@@ -210,7 +210,10 @@ class GameGrid:
             if current_tile is not None and below_tile is not None and current_tile.number == below_tile.number:
                # Double the value of the current tile
                current_tile.number *= 2
-
+               
+               # add merging tile to the score based on 2048 game idea
+               self.score += current_tile.number
+               
                # Clear the below tile
                self.tile_matrix[row - 1][col] = None
                merged = True  # Set the merged flag to True
