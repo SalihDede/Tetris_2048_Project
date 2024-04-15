@@ -15,14 +15,47 @@ class Tile:
       # set the number on this tile
       self.number = random.choice([2,4])
       # set the colors of this tile
-      self.background_color = Color(219, 189, 113)  # background (tile) color
+      self.background_color_2 = Color(249, 186, 114)  # background (tile) color for 2
+      self.background_color_4 = Color(227, 135, 65)  # bg color for number 4
+      self.background_color_8 = Color(215, 108, 41)  # bg color for number 8
+      self.background_color_16 = Color(202, 84, 23)  # bg color for number 16
+      self.background_color_32 = Color(193, 82, 23)  # bg color for number 32
+      self.background_color_64 = Color(186, 69, 24)  # bg color for number 64
+      self.background_color_128 = Color(181, 63, 24)  # bg color for number 128
+      self.background_color_256 = Color(165, 58, 23)  # bg color for number 256
+      self.background_color_512 = Color(143, 38, 19)  # bg color for number 512
+      self.background_color_1024 = Color(124, 35, 16)  # bg color for number 1024
+      self.background_color_2048 = Color(104, 31, 11)  # bg color for number 2048
       self.foreground_color = Color(0, 100, 200)  # foreground (number) color
       self.box_color = Color(14, 98, 148)  # box (boundary) color
 
    # A method for drawing this tile at a given position with a given length
    def draw(self, position, length=1):  # length defaults to 1
       # draw the tile as a filled square
-      stddraw.setPenColor(self.background_color)
+      if self.number == 2:
+         stddraw.setPenColor(self.background_color_2)
+      if self.number == 4:
+         stddraw.setPenColor(self.background_color_4)
+      if self.number == 8:
+         stddraw.setPenColor(self.background_color_8)
+      if self.number == 16:
+         stddraw.setPenColor(self.background_color_16)
+      if self.number == 32:
+         stddraw.setPenColor(self.background_color_32)
+      if self.number == 64:
+         stddraw.setPenColor(self.background_color_64)
+      if self.number == 128:
+         stddraw.setPenColor(self.background_color_128)
+      if self.number == 256:
+         stddraw.setPenColor(self.background_color_256)
+      if self.number == 512:
+         stddraw.setPenColor(self.background_color_512)
+      if self.number == 1024:
+         stddraw.setPenColor(self.background_color_1024)
+      if self.number == 2048:
+         stddraw.setPenColor(self.background_color_2048)
+      if self.number == 5096:
+         stddraw.setPenColor(self.background_color_2048)
       stddraw.filledSquare(position.x, position.y, length / 2)
       # draw the bounding box around the tile as a square
       stddraw.setPenColor(self.box_color)
