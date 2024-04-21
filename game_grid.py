@@ -64,7 +64,11 @@ class GameGrid:
       img_center_x, img_center_y = (self.grid_width+2.2), self.grid_height - 11
       image_to_display = Picture(img_file)
       stddraw.picture(image_to_display, img_center_x, img_center_y)
-  
+      #Display Control Recive for user
+      stddraw.text(self.grid_width + 1.4, self.grid_height - 17, "   P  --> Pause")
+      stddraw.text(self.grid_width + 1.5, self.grid_height - 18, "   S  --> Smash")
+      stddraw.text(self.grid_width + 2.1, self.grid_height - 19, "Space --> Rotate")
+
       # Next Block'un altındaki başlangıç koordinatları
       next_block_x = 13.2
       next_block_y = self.grid_height - 12
