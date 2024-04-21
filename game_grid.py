@@ -4,7 +4,7 @@ import lib.stddraw as stddraw  # used for displaying the game grid
 from lib.color import Color  # used for coloring the game grid
 from point import Point  # used for tile positions
 import numpy as np  # fundamental Python module for scientific computing
-
+import sys
 # A class for modeling the game grid
 class GameGrid:
    # A constructor for creating the game grid based on the given arguments
@@ -74,19 +74,48 @@ class GameGrid:
 
       # show the resulting drawing with a pause duration = 250 ms
       stddraw.show(250)
-      
+   
+   def exit_game(self):
+      sys.exit()  # Terminate the program to close the stddraw window
+
    def display_end_game(self):
       current_dir = os.path.dirname(os.path.realpath(__file__))
-      img_file = current_dir + "/images/End_game_frame.png"
+      img_file = current_dir + "/images/end_bg_updated.png"
       img_center_x, img_center_y = (self.grid_width-3.8), self.grid_height - 10.5
       image_to_display = Picture(img_file)
       stddraw.picture(image_to_display, img_center_x, img_center_y)
       stddraw.setFontFamily("Poppins Bold")
       stddraw.setFontSize(80)
-      stddraw.setPenColor(Color(0,0,0))
-      text_to_display = "Click Here to Start the Game"
-      stddraw.text(self.grid_width -3.8, self.grid_height - 15.5, ""  + str(self.score))
-      stddraw.show(5000)
+      stddraw.setPenColor(Color(245,245,245))
+      stddraw.text(self.grid_width -2., self.grid_height - 14.85, ""  + str(self.score))
+      stddraw.setFontSize(70)
+      stddraw.setPenColor(Color(103,179,46))
+      text_yes = "YES"
+      stddraw.text(img_center_x-4, 1, text_yes)
+      stddraw.setFontSize(70)
+      stddraw.setPenColor(Color(166,83,155))
+      text_no = "NO"
+      stddraw.text(img_center_x+4, 1, text_no)  
+      
+      while True:
+         stddraw.show(50)
+         
+         # check the mouse reactsion
+         if stddraw.mousePressed():
+            mouse_x, mouse_y = stddraw.mouseX(), stddraw.mouseY()
+            # check if these coordinates are inside the button
+            if mouse_x >= 2 and mouse_x <= 6:
+               if mouse_y >= 0 and mouse_y <= 2:
+                  # If clicked YES, call the display method to restart the game
+                  #self.reset_game()
+                  from Tetris_2048 import start
+                  start()
+                  break
+
+            if  mouse_x >= 10 and mouse_x <= 14:
+               if mouse_y >= 0 and mouse_y <= 2:
+                # If clicked NO, exit the game
+                  self.exit_game()    
    
    # A method for drawing the cells and the lines of the game grid
    def draw_grid(self):
